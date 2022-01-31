@@ -1,0 +1,867 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="reveal.js/dist/reset.css">
+		<link rel="stylesheet" href="reveal.js/dist/reveal.css">
+		<link rel="stylesheet" href="reveal.js/dist/theme/black.css">
+
+		<style type="text/css">
+@keyframes rotate {
+  0%   {stroke: yellow; transform: scale(1) rotate(0deg);}
+  50%  {stroke: blue; transform: scale(.5) rotate(45deg);}
+  100% {stroke: yellow;  transform: scale(1) rotate(90deg);}
+}
+
+.csssvganim rect {
+	animation: rotate 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.jssvganim {
+  width: 500px;
+  height: 500px;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+
+.scene1 .bg {
+  fill: #349597;
+}
+.scene1 .ground {
+  fill: #FCDC9F;
+}
+.scene1 .sky1 {
+  fill: #F6DA71;
+}
+.scene1 .sky2 {
+  fill: #F06B4B;
+}
+.scene1 .sky3 {
+  fill: #E9214F;
+}
+.scene1 .tree-left {
+  fill: #49934E;
+}
+.scene1 .tree-right {
+  fill: #3D7C42;
+}
+.scene1 .mountain-left {
+  fill: #44557E;
+}
+.scene1 .mountain-right {
+  fill: #384668;
+}
+.scene1 .mountain-top-left {
+  fill: #ffffff;
+}
+.scene1 .mountain-top-right {
+  fill: #BBBBBB;
+}
+		</style>
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="reveal.js/plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2>SVG: Modes, Coordinates, Basic shapes, Accessibility, Animations</h2>
+				</section>
+				<section>
+					<section>
+						<h2>Modes</h2>
+					</section>
+					<section>
+						<p>
+							The <code>mode</code> attribute defines the blending mode on the <code>&lt;feBlend&gt;</code> filter primitive.
+						</p>
+						<p>
+							It works like the <code>&lt;blend-mode&gt;</code> CSS data type, that describes how colors should appear when elements overlap.
+						</p>
+					</section>
+					<section>
+						<h2>Blend modes</h2>
+						<ul>
+							<li><code>normal</code></li>
+							<li><code>multiply</code></li>
+							<li><code>screen</code></li>
+							<li><code>overlay</code></li>
+							<li><code>darken</code></li>
+							<li><code>lighten</code></li>
+							<li><code>color-dodge</code></li>
+							<li><code>color-burn</code></li>
+						</ul>
+						<ul>
+							<li><code>hard-light</code></li>
+							<li><code>soft-light</code></li>
+							<li><code>difference</code></li>
+							<li><code>exclusion</code></li>
+							<li><code>hue</code></li>
+							<li><code>saturation</code></li>
+							<li><code>color</code></li>
+							<li><code>luminosity</code></li>
+						</ul>
+					</section>
+					<section>
+						<h2>Examples</h2>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>normal</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="normal">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="normal"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#normal);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>multiply</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="multiply">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="multiply"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#multiply);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>screen</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="screen">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="screen"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#screen);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>overlay</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="overlay">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="overlay"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#overlay);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>darken</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="darken">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="darken"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#darken);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>lighten</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="lighten">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="lighten"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#lighten);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>color-dodge</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="colordodge">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="color-dodge"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#colordodge);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>color-burn</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="colorburn">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="color-burn"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#colorburn);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>hard-light</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="hardlight">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="hard-light"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#hardlight);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>soft-light</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="softlight">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="soft-light"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#softlight);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>difference</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="difference">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="difference"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#difference);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>exclusion</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="exclusion">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="exclusion"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#exclusion);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>hue</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="hue">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="hue"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#hue);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>saturation</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="saturation">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="saturation"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#saturation);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>color</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="color">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="color"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#color);"/>
+						</svg>
+					</section>
+					<section data-auto-animate data-auto-animate-easing="ease-in-out">
+						<h2><code>luminosity</code></h2>
+						<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+							<defs>
+								<filter id="luminosity">
+									<feFlood result="floodFill" x="0" y="0" width="100%" height="100%"
+											flood-color="green" flood-opacity="1"/>
+									<feBlend in="SourceGraphic" in2="floodFill" mode="luminosity"/>
+								</filter>
+							</defs>
+							<image xlink:href="//developer.mozilla.org/files/6457/mdn_logo_only_color.png"
+									x="10%" y="10%" width="80%" height="80%"
+									style="filter:url(#luminosity);"/>
+						</svg>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Coordinates</h2>
+					</section>
+					<section>
+						<p>For all elements, SVG uses a coordinate system similar to the one used by HTML or canvas. That is, the top left corner of the document is considered to be the point (0,0), or point of origin. Positions are then measured in pixels from the top left corner, with the positive x direction being to the right, and the positive y direction being to the bottom.</p>
+						<div><img src="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Positions/canvas_default_grid.png" alt="" width="220" height="220" loading="lazy"></div>
+					</section>
+					<section>
+						<h3><code>viewBox</code></h3>
+						<p>
+							The value of the viewBox attribute is a list of four numbers: <code>min-x</code>, <code>min-y</code>, <code>width</code> and <code>height</code>. The numbers separated by whitespace and/or a comma, which specify a rectangle in user space which is mapped to the bounds of the viewport established for the associated SVG element.
+						</p>
+						<div style="display: flex; font-size: 18px; justify-content: space-between; gap: 10px;">
+							<figure>
+								<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" height="100">
+									<rect x="0" y="0" width="100%" height="100%"/>
+									<circle cx="50%" cy="50%" r="4" fill="white"/>
+								</svg>
+								<figcaption><code>viewBox="0 0 100 100"</code></figcaption>
+							</figure>
+							<figure>
+								<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" height="100">
+									<rect x="0" y="0" width="100%" height="100%"/>
+									<circle cx="50%" cy="50%" r="4" fill="white"/>
+								</svg>
+								<figcaption><code>viewBox="0 0 10 10"</code></figcaption>
+							</figure>
+							<figure>
+								<svg viewBox="-5 -5 10 10" xmlns="http://www.w3.org/2000/svg" height="100">
+									<rect x="0" y="0" width="100%" height="100%"/>
+									<circle cx="50%" cy="50%" r="4" fill="white"/>
+								</svg>
+								<figcaption><code>viewBox="-5 -5 10 10"</code></figcaption>
+							</figure>
+						</div>
+					</section>
+					<section>
+						<h3>Scaling</h3>
+						<p>
+							With a viewBox correctly set on the image, it will scale to the dimensions of it’s container.
+						</p>
+						<div style="display: flex; font-size: 18px; justify-content: space-between; gap: 10px;">
+							<figure>
+								<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" height="100">
+									<rect x="0" y="0" width="10" height="10"/>
+									<circle cx="5" cy="5" r="4" fill="white"/>
+								</svg>
+								<figcaption>Correct <code>viewBox</code></figcaption>
+							</figure>
+							<figure>
+								<svg xmlns="http://www.w3.org/2000/svg" height="100" width="100">
+									<rect x="0" y="0" width="10" height="10"/>
+									<circle cx="5" cy="5" r="4" fill="white"/>
+								</svg>
+								<figcaption>No <code>viewBox</code></figcaption>
+							</figure>
+						</div>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Basic shapes</h2>
+					</section>
+					<section>
+						<p>There are several basic shapes used for most SVG drawing. The purpose of these shapes is fairly obvious from their names.</p>
+						<ul>
+							<li><code>rect</code></li>
+							<li><code>circle</code></li>
+							<li><code>ellipse</code></li>
+							<li><code>line</code></li>
+						</ul>
+						<ul>
+							<li><code>polyline</code></li>
+							<li><code>polygon</code></li>
+							<li><code>path</code></li>
+						</ul>
+					</section>
+					<section>
+						<h3><code>rect</code></h3>
+						<p>
+							The <code>&lt;rect&gt;</code> element draws a rectangle on the screen. There are 6 basic attributes that control the position and shape of the rectangles on screen. The one on the right has its <code>rx</code> and <code>ry</code> parameters set, giving it rounded corners. If they're not set, they default to <code>0</code>.
+						</p>
+						<svg width="100" height="100" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<rect x="1" y="1" width="8" height="8" stroke="#00f" fill="transparent" stroke-width="1"/>
+						</svg>
+					</section>
+					<section>
+						<h3><code>circle</code></h3>
+						<p>
+							The <code>&lt;circle&gt;</code> element draws a circle on the screen. It takes 3 basic parameters to determine the shape and size of the element.
+						</p>
+						<svg width="100" height="100" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<circle cx="5" cy="5" r="4" stroke="red" fill="transparent" stroke-width="1"/>
+						</svg>
+					</section>
+					<section>
+						<h3><code>ellipse</code></h3>
+						<p>
+							An <code>&lt;ellipse&gt;</code> is a more general form of the <code>&lt;circle&gt;</code> element, where you can scale the x and y radius (commonly referred to as the semimajor and semiminor axes in maths) of the circle separately.
+						</p>
+						<svg width="100" height="100" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<ellipse cx="5" cy="5" rx="4" ry="2" stroke="#ff0" fill="transparent" stroke-width="1"/>
+						</svg>
+					</section>
+					<section>
+						<h3><code>line</code></h3>
+						<p>
+							The <code>&lt;line&gt;</code> element takes the positions of two points as parameters and draws a straight line between them.
+						</p>
+						<svg width="100" height="100" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<line x1="1" x2="9" y1="1" y2="9" stroke="orange" stroke-width="1"/>
+						</svg>
+					</section>
+					<section>
+						<h3><code>polyline</code></h3>
+						<p>
+							A <code>&lt;polyline&gt;</code> is a group of connected straight lines. Since the list of points can get quite long, all the points are included in one attribute:
+						</p>
+						<svg width="100" height="100" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<polyline points="1 1 5 4 5 6 9 9" stroke="#f0f" fill="transparent" stroke-width="1"/>
+						</svg>
+					</section>
+					<section>
+						<h3><code>polygon</code></h3>
+						<p>
+							A <code>&lt;polygon&gt;</code> is similar to a <code>&lt;polyline&gt;</code>, in that it is composed of straight line segments connecting a list of points. For polygons though, the path automatically connects the last point with the first, creating a closed shape.
+						</p>
+						<svg width="100" height="100" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<polygon points="5 1 9 3 9 7 5 9 1 7 1 3 5 1" stroke="green" fill="transparent" stroke-width="1"/>
+						</svg>
+					</section>
+					<section>
+						<h3><code>path</code></h3>
+						<p>
+							A <code>&lt;path&gt;</code> is the most general shape that can be used in SVG. Using a path element, you can draw rectangles (with or without rounded corners), circles, ellipses, polylines, and polygons. Basically any of the other types of shapes, bezier curves, quadratic curves, and many more.
+						</p>
+						<svg width="100" height="100" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<path d="M5,7C4.4,5.5,5.6,4.5,5,3C4.3,1.3,1.6,0.4,1,1s0.3,3.3,2,4c1.5,0.6,2.5-0.6,4,0c1.7,0.7,2.6,3.4,2,4
+	S5.7,8.7,5,7z" stroke="#0ff" fill="transparent" stroke-width="1"/>
+						</svg>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Accessibility</h2>
+					</section>
+					<section>
+						<p>You can make your SVG accessible by adding screen readers support or keyboard-only navigation. But you can use some tricks to make your UI more user-friendly for all users.</p>
+					</section>
+					<section>
+						<h3><code>&lt;title&gt;</code></h3>
+						<p>The <code>&lt;title&gt;</code> SVG tag similar to an <code>&lt;img&gt;</code> <code>title</code> attribure. The <code>&lt;title&gt;</code> must be the first child of it’s parent element and will be used as a tooltip as the pointing device moves over it.</p>
+						<svg width="100" height="100" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<title>Square</title>
+							<rect x="1" y="1" width="8" height="8" stroke="#00f" fill="transparent" stroke-width="1"/>
+						</svg>
+					</section>
+					<section>
+						<h3><code>&lt;desc&gt;</code></h3>
+						<p>The <code>&lt;desc&gt;</code> SVG tag can contain a longer, more complete description of image than a <code>&lt;title&gt;</code>. This text will not be displayed on the screen.</p>
+						<svg width="100" height="100" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<title>Square</title>
+							<desc>Blue square outline.</desc>
+							<rect x="1" y="1" width="8" height="8" stroke="#00f" fill="transparent" stroke-width="1"/>
+						</svg>
+					</section>
+					<section>
+						<h3><code>aria-labelledby</code></h3>
+						<p>To ensure the assistive technology can access the <code>&lt;title&gt;</code> and <code>&lt;desc&gt;</code>:
+							<ul>
+								<li>Add the ID’s to the <code>&lt;title&gt;</code> and <code>&lt;desc&gt;</code>:</li>
+								<ul>
+									<li><code>&lt;title id="uniqueTitleID"&gt;…&lt;/title&gt;</code></li>
+									<li><code>&lt;desc id="uniqueDescID"&gt;…&lt;/desc&gt;</code></li>
+								</ul>
+								<li>On the &lt;svg&gt; tag, add:</li>
+								<ul>
+									<li><code>aria-labelledby="uniqueTitleID uniqueDescID"</code> – both title and description are included in aria-labelledby because it has better screen-reader support than <code>aria-describedby</code></li>
+								</ul>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h3><code>&lt;text&gt;</code></h3>
+						<p>The <code>&lt;text&gt;</code> SVG tag draws a graphics element consisting of text. It could be used as a <code>&lt;title&gt;</code> and a <code>&lt;desc&gt;</code> for NVDA (not Nvidia) AT. Also it could be used as <code>&lt;img&gt;</code> <code>alt</code> attribure.</p>
+						<svg aria-labelledby="squareTitle squareDesc" width="100" height="100" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<title id="squareTitle">Square</title>
+							<desc id="squareDesc">Blue square outline.</desc>
+							<text id="squareNVDADesc" style="font-size: 0;">Blue square outline.</text>
+							<rect x="1" y="1" width="8" height="8" stroke="#00f" fill="transparent" stroke-width="1"/>
+						</svg>
+					</section>
+					<section>
+						<h3><code>tabindex</code></h3>
+						<p>You can make SVG elements focusable by keyboard via adding <code>tabindex</code> attribute.</p>
+						<svg aria-labelledby="squareTitle squareDesc" tabindex="0" width="100" height="100" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<title id="squareTitle">Square</title>
+							<desc id="squareDesc">Blue square outline.</desc>
+							<text id="squareNVDADesc" style="font-size: 0;">Blue square outline.</text>
+							<rect x="1" y="1" width="8" height="8" stroke="#00f" fill="transparent" stroke-width="1"/>
+						</svg>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Animations</h2>
+					</section>
+					<section>
+						<p>There are three ways to animate SVGs — <b>JS</b>, <b>CSS</b> and <b>SMIL</b>. The last one is the most flexible because SMIL can animate path changes and can be used with any type of SVG image adding.</p>
+					</section>
+					<section>
+						<h3>JS</h3>
+						<p>SVGs could be animated by JavaScript (Web Animations API) like other HTML elements. Also <a href="https://css-tricks.com/lodge/svg/27-animating-svg-javascript/">here</a> you can find a list of JavaScript SVG libraries.</p>
+						<div style="display: flex;">
+							<ul>
+								<h6>Pros</h6>
+								<li style="white-space: nowrap;">¯\_(ツ)_/¯</li>
+							</ul>
+							<a href="https://codepen.io/timrijkse/pen/XNjQBR" title="Source CodePen">
+										<svg viewBox="0 0 500 500" class="jssvganim">
+											<g class="scene1">
+												<defs>
+													<clipPath id="circle">
+														<circle class="mask" cx="250" cy="250" r="100" />
+													</clipPath>
+													<clipPath id="ground">
+														<rect x="50" y="50" width="400" height="260" />
+													</clipPath>
+												</defs>
+											
+												<g clip-path="url(#circle)">
+													<rect class="bg" x="0" y="0" width="500" height="500" />
+													
+													<g clip-path="url(#ground)">
+														<rect class="sky3" x="50" y="130" width="350" height="70" />
+														<rect class="sky2" x="50" y="200" width="350" height="50" />
+														<rect class="sky1" x="50" y="250" width="350" height="50" />
+														
+														<g class="mountain" transform="translate(150 185)">
+															<polygon class="mountain-left" points="100,0 100,120 0,120" />
+															<polygon class="mountain-right" points="100,0 200,120 100,120" />
+															<polygon class="mountain-top-left" points="100,0 100,30 75,30" />
+															<polygon class="mountain-top-right" points="100,0 125,30 100,30" />
+														</g>
+													</g>
+													
+													<g class="tree tree1" transform="translate(150 255)">
+														<polygon class="tree-left" points="15,0 15,50 0,50" />
+														<polygon class="tree-right" points="15,0 15,50 30,50" />
+													</g>
+													
+													<g class="tree tree2" transform="translate(180 255)">
+														<polygon class="tree-left" points="15,0 15,50 0,50" />
+														<polygon class="tree-right" points="15,0 15,50 30,50" />
+													</g>
+													
+													<g class="tree tree3" transform="translate(210 255)">
+														<polygon class="tree-left" points="15,0 15,50 0,50" />
+														<polygon class="tree-right" points="15,0 15,50 30,50" />
+													</g>
+													
+													<g class="tree tree4" transform="translate(240 255)">
+														<polygon class="tree-left" points="15,0 15,50 0,50" />
+														<polygon class="tree-right" points="15,0 15,50 30,50" />
+													</g>
+													
+													<g class="tree tree5" transform="translate(270 255)">
+														<polygon class="tree-left" points="15,0 15,50 0,50" />
+														<polygon class="tree-right" points="15,0 15,50 30,50" />
+													</g>
+													
+													<g class="tree tree6" transform="translate(300 255)">
+														<polygon class="tree-left" points="15,0 15,50 0,50" />
+														<polygon class="tree-right" points="15,0 15,50 30,50" />
+													</g>
+													
+													<g class="tree tree7" transform="translate(330 255)">
+														<polygon class="tree-left" points="15,0 15,50 0,50" />
+														<polygon class="tree-right" points="15,0 15,50 30,50" />
+													</g>
+										
+													<rect class="ground" x="100" y="300" width="350" height="10" />
+												</g>
+											</g>
+										</svg>
+							</a>
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+							<script>
+										const tl = new TimelineMax({
+		repeat: -1,
+		repeatDelay: 2 });
+	
+	
+	const svg = document.querySelector('.jssvganim');
+	
+	const scene1 = {
+		wrapper: svg.querySelector('.scene1'),
+		mask: svg.querySelector('.scene1 .mask'),
+		ground: svg.querySelector('.scene1 .ground'),
+		sky1: svg.querySelector('.scene1 .sky1'),
+		sky2: svg.querySelector('.scene1 .sky2'),
+		sky3: svg.querySelector('.scene1 .sky3'),
+		tree1: svg.querySelector('.scene1 .tree1'),
+		tree2: svg.querySelector('.scene1 .tree2'),
+		tree3: svg.querySelector('.scene1 .tree3'),
+		tree4: svg.querySelector('.scene1 .tree4'),
+		tree5: svg.querySelector('.scene1 .tree5'),
+		tree6: svg.querySelector('.scene1 .tree6'),
+		tree7: svg.querySelector('.scene1 .tree7'),
+		mountain: svg.querySelector('.scene1 .mountain'),
+		mountain1: svg.querySelector('.scene1 .mountain-left'),
+		mountain2: svg.querySelector('.scene1 .mountain-right') };
+	
+	
+	tl.from(scene1.mask, 1, {
+		attr: {
+			r: 0 },
+	
+		ease: Elastic.easeOut.config(3, 1) });
+	
+	
+	tl.from(scene1.ground, 0.5, {
+		autoAlpha: 0,
+		attr: {
+			y: '+=200' },
+	
+		transformOrigin: 'left center',
+		ease: Power4.easeOut },
+	0.1);
+	
+	tl.staggerFrom([scene1.sky1, scene1.sky2, scene1.sky3], 0.5, {
+		autoAlpha: 0,
+		skewY: 0,
+		attr: {
+			y: '+=90' },
+	
+		transformOrigin: 'center bottom',
+		ease: Elastic.easeOut.config(1, 3) },
+	0.075, 0.25);
+	
+	tl.staggerFrom([scene1.tree1, scene1.tree2, scene1.tree3, scene1.tree4, scene1.tree5, scene1.tree6, scene1.tree7], 0.5, {
+		rotation: 45,
+		scale: 0,
+		transformOrigin: 'bottom center',
+		ease: Back.easeOut.config(2, 1.55) },
+	0.05, 0.4);
+	
+	tl.staggerFrom([scene1.mountain], 0.75, {
+		y: '+=50',
+		skewX: -200,
+		scale: 0,
+		transformOrigin: 'bottom center',
+		ease: Back.easeOut.config(1, .2) },
+	0.0125, 0.5);
+	
+	tl.to(scene1.mask, 1, {
+		attr: {
+			r: 0 },
+	
+		transformOrigin: 'center center',
+		ease: Back.easeIn.config(2, 1.55) },
+	'+=3');
+							</script>
+							<ul>
+								<h6>Cons</h6>
+								<li>works only with inline <code>&lt;svg&gt;</code> elements</li>
+								<li>doesn't support path transformations</li>
+							</ul>
+						</div>
+					</section>
+					<section>
+						<h3>CSS</h3>
+						<p>Just like with other HTML elemets, you can animate every supported CSS-attribute of SVG image by CSS animations. Bonus: it's possible to put CSS-animation inline in a <code>.svg</code> file and use animated SVG, for example, as a favicon.</p>
+						<div style="display: flex; gap: 20px;">
+							<ul>
+								<h6>Pros</h6>
+								<li>simple CSS syntax</li>
+								<li>could be placed inline into <code>&lt;svg&gt;</code> and used in external <code>.svg</code> files</li>
+							</ul>
+							<svg width="100" height="100" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" class="csssvganim">
+								<title>Square</title>
+								<rect x="1" y="1" width="8" height="8" stroke="#00f" fill="transparent" stroke-width="1"/>
+							</svg>
+							<ul>
+								<h6>Cons</h6>
+								<li>doesn't support path transformations</li>
+							</ul>
+						</div>
+					</section>
+					<section>
+						<h3>SMIL</h3>
+						<p>SMIL — the most powerful tool for SVG animation. You can read more about SMIL animations in <a href="https://habr.com/ru/post/450924/" title="Все об SVG анимации">this article</a>.</p>
+						<div style="display: flex; gap: 20px;">
+							<ul>
+								<h6>Pros</h6>
+								<li>supports everything that can make CSS and JS</li>
+								<li>supports shape animation of <code>d</code> attribute</li>
+								<li>native for SVG</li>
+							</ul>
+							<svg viewbox="0 0 100 100" height="100">
+								<path>
+									<animate 
+										 attributeName="d" 
+										 dur="3000ms" 
+										 repeatCount="indefinite"
+										 keyTimes="0;
+															 .0625;
+															 .3125;
+															 .395833333;
+															 .645833333;
+															 .833333333;
+															 1"
+										 calcMode="spline" 
+										 keySplines="0,0,1,1;
+																 .42,0,1,1;
+																 0,0,.58,1;
+																 .42,0,.58,1;
+																 .42,0,.58,1;
+																 .42,0,.58,1"
+												 
+										 values="M 0,0 C 50,0 50,0 100,0 100,50 100,50 100,100
+														 50,100 50,100 0,100 0,50 0,50 0,0 Z;
+																	 
+														 M 0,0 C 50,0 50,0 100,0 100,50 100,50 100,100
+														 50,100 50,100 0,100 0,50 0,50 0,0 Z; 
+							
+														 M 50,0 C 75,50 75,50 100,100 50,100 50,100 0,100
+														 12.5,75 12.5,75 25,50 37.5,25 37.5,25 50,0 Z;
+							
+														 M 50,0 C 75,50 75,50 100,100 50,100 50,100 0,100
+														 12.5,75 12.5,75 25,50 37.5,25 37.5,25 50,0 Z;
+							
+														 M 100,50 C 100,77.6 77.6,100 50,100 22.4,100 0,77.6
+														 0,50 0,22.4 22.4,0 50,0 77.6,0 100,22.4 100,50 Z;
+																	 
+														 M 100,50 C 100,77.6 77.6,100 50,100 22.4,100 0,77.6 
+														 0,50 0,22.4 22.4,0, 50,0 77.6,0 100,22.4 100,50 Z;
+																	 
+														 M 100,100 C 50,100 50,100 0,100 0,50 0,50 0,0
+														 50,0 50,0 100,0 100,50 100,50 100,100 Z;"/>
+									<animate 
+										 attributeName="fill"
+										 dur="3000ms" 
+										 repeatCount="indefinite"
+										 keyTimes="0;
+															 .0625;
+															 .3125;
+															 .395833333;
+															 .645833333;
+															 .833333333;
+															 1"
+										 calcMode="spline" 
+										 keySplines="0,0,1,1;
+																 .42,0,1,1;
+																 0,0,.58,1;
+																 .42,0,.58,1;
+																 .42,0,.58,1;
+																 .42,0,.58,1"
+										 values="#FFA400;
+														 #FFA400;
+														 #FF4E42;
+														 #FF4E42;
+														 #0CCE6B;
+														 #0CCE6B;
+														 #FFA400;"/>
+								</path>
+							</svg>
+							<ul>
+								<h6>Cons</h6>
+								<li>you need to learn it</li>
+								<li>gonna be deprecated by hipsters</li>
+							</ul>
+						</div>
+					</section>
+				</section>
+				<section>
+					<h2>fin</h2>
+				</section>
+			</div>
+		</div>
+		<script src="reveal.js/dist/reveal.js"></script>
+		<script src="reveal.js/plugin/notes/notes.js"></script>
+		<script src="reveal.js/plugin/markdown/markdown.js"></script>
+		<script src="reveal.js/plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
